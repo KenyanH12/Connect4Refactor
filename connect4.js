@@ -4,6 +4,8 @@
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
  */
+let player1;
+let player2;
 
 class Game {
   constructor(p1, p2, height = 6, width = 7) {
@@ -24,13 +26,14 @@ class Game {
     for (let y = 0; y < this.height; y++) {
       this.board.push(Array.from({ length: this.width }));
     }
+    console.log(this.board)
   }
 
   /** makeHtmlBoard: make HTML table and row of column tops.  */
 
   makeHtmlBoard() {
     const board = document.getElementById('board');
-    board.innerHTML = '';
+    board.innerHTML = "";
 
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
@@ -78,13 +81,9 @@ class Game {
   /** placeInTable: update DOM to place piece into HTML board */
 
   placeInTable(y, x) {
-    const piece = document.createElement('div');
-    piece.classList.add('piece');
-    piece.style.backgroundColor = this.currPlayer.color;
-    piece.style.top = -50 * (y + 2);
 
     const spot = document.getElementById(`${y}-${x}`);
-    spot.append(piece);
+    spot.style.backgroundColor = this.currPlayer.color;
   }
 
   /** endGame: announce game end */
@@ -93,6 +92,11 @@ class Game {
     alert(msg);
     const top = document.querySelector("#column-top");
     top.removeEventListener("click", this.handleGameClick);
+    const emptyBoard = document.getElementById("board");
+    emptyBoard.innerHTML = "";
+    this.board = [];
+    player1.value = "";
+    player2.value = "";
   }
 
   /** handleClick: handle click of column top to play piece */
@@ -168,7 +172,10 @@ class Player {
 }
 
 document.getElementById('start-game').addEventListener('click', () => {
-  let p1 = new Player(document.getElementById('p1-color').value);
-  let p2 = new Player(document.getElementById('p2-color').value);
+  player1 = (document.getElementById('p1-color').value);
+  player2 = (document.getElementById('p2-color').value);
+  let p1 = new Player(player1.value);
+  let p2 = new Player(player2.value);
+
   new Game(p1, p2);
 });
