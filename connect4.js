@@ -97,6 +97,7 @@ class Game {
     this.board = [];
     player1.value = "";
     player2.value = "";
+    this.gameOver = true;
   }
 
   /** handleClick: handle click of column top to play piece */
@@ -174,8 +175,8 @@ class Player {
 document.getElementById('start-game').addEventListener('click', () => {
   player1 = (document.getElementById('p1-color').value);
   player2 = (document.getElementById('p2-color').value);
-  let p1 = new Player(player1.value);
-  let p2 = new Player(player2.value);
+  let p1 = new Player(player1);
+  let p2 = new Player(player2);
 
   new Game(p1, p2);
 });
