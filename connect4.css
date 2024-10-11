@@ -28,3 +28,7 @@ td {
   padding: 1.5rem;
   border: 1px solid #333;
 }
+
+button:hover {
+  color: green;
+}
